@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TAYSIIR INTERNATIONAL SCHOOLS - FINAL EXAM RESULTS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Library for Confetti Animation -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <style>
     :root {
       --primary-blue: #002060;
@@ -221,10 +223,18 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     
-    .student-info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* Student Info Section - Modified for 3-3 layout */
+    .student-info-rows {
+      display: flex;
+      flex-direction: column;
       gap: 15px;
+      margin-top: 20px;
+    }
+
+    .info-row {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(3, 1fr);
     }
     
     .info-item {
@@ -308,21 +318,24 @@
       border-collapse: separate;
       border-spacing: 0;
       font-size: 15px;
+      table-layout: fixed; /* Ensure columns respect width */
     }
     
     .results-table thead th {
       background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
       color: white;
       padding: 16px 20px;
-      text-align: left;
+      text-align: center;
       font-weight: 500;
       position: sticky;
       top: 0;
+      width: 25%; /* Make columns equal width */
     }
     
     .results-table tbody td {
       padding: 14px 20px;
       border-bottom: 1px solid #e0e6ed;
+      text-align: center;
     }
     
     .results-table tbody tr:nth-child(even) {
@@ -336,11 +349,13 @@
     .subject-name {
       font-weight: 600;
       color: var(--primary-blue);
+      text-align: left;
     }
     
     .grade-cell {
       display: flex;
       align-items: center;
+      justify-content: center;
     }
     
     .grade-value {
@@ -638,7 +653,7 @@
         font-size: 22px;
       }
       
-      .student-info-grid {
+      .info-row {
         grid-template-columns: 1fr;
       }
       
@@ -671,6 +686,9 @@
         margin-right: auto;
         padding-right: 20px;
       }
+       .results-table .subject-name {
+        text-align: right;
+      }
     }
     
     /* Animation */
@@ -682,13 +700,73 @@
     .fade-in {
       animation: fadeIn 0.5s ease-out;
     }
+
+    /* --- STYLES FOR WINNER/LOSER ANIMATION --- */
+    #winner-animation, #loser-animation {
+        position: fixed;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        display: flex; /* Changed from none to flex by JS */
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: green;
+        flex-direction: column;
+        backdrop-filter: blur(5px);
+    }
+
+    .animation-content {
+        animation: zoomIn 0.5s ease-in-out;
+    }
+
+    .animation-content h1 {
+        font-size: 4rem;
+        font-weight: bold;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        margin-bottom: 1rem;
+    }
+
+    .animation-content p {
+        font-size: 1.5rem;
+    }
+    
+    .trophy {
+        font-size: 8rem;
+        animation: bounce 0.5s infinite;
+    }
+
+    .fail-icon {
+        font-size: 8rem;
+    }
+
+    @keyframes zoomIn {
+        from { transform: scale(0.5); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-30px);
+        }
+        60% {
+            transform: translateY(-15px);
+        }
+    }
+    /* --- END OF ANIMATION STYLES --- */
+
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Modern Header Section -->
     <div class="header-section">
-      <h1 class="school-name">TAYSEER INTERNATIONAL SCHOOLS</h1>
+      <h1 class="school-name">TAYSIIR INTERNATIONAL SCHOOLS</h1>
       <h2 class="exam-title">FINAL EXAMINATION RESULTS</h2>
       <div class="academic-year">ACADEMIC YEAR 2024-2025</div>
     </div>
@@ -901,10 +979,27 @@
     <div class="footer">
       <p>&copy; 2025 | SULTAAN FAATIX</p>
       <p style="color: var(--secondary-blue); font-size: 15px; margin-top: 5px;">
-        Wixii cabasho ah oo ku saabsan natiijada Imtixaanka, fadlan gaadh xafiiska imtixannada dugsiga. Ama la xidhiidh <a href="tel:+252684613207">📞+252 684613207</a>
+        Wixii cabasho ah oo ku saabsan natiijada Imtixaanka, fadlan gaadh xafiiska imtixaannada dugsiga. Ama la xidhiidh <a href="tel:+252684613207">📞+252 684613207</a>
       </p>
       <p style="margin-top: 10px;">Printed on: <span id="printDate"></span></p>
     </div>
+  </div>
+
+  <!-- Animation Overlays -->
+  <div id="winner-animation" style="display: none;">
+      <div class="animation-content">
+          <div class="trophy">🏆</div>
+          <h1>Hambalyo! Waad Gudubtay!</h1>
+          <p>Horumar Wacan!</p>
+      </div>
+  </div>
+
+  <div id="loser-animation" style="display: none;">
+      <div class="animation-content">
+          <div class="fail-icon">😞</div>
+          <h1>Waan Ka Xumahay! Waad Hartay!</h1>
+          <p>Nasiib Wacan Marka Dambe.</p>
+      </div>
   </div>
 
   <script>
@@ -949,7 +1044,7 @@
           Geography: 71,
           Technology: 69,
           Business: 74,
-          },
+        },
       },
       {
         regNo: "003",
@@ -958,13 +1053,13 @@
         class: "Form 4",
         year: "2025",
         results: {
-          Mathematics: 100,
-          Physics: 100,
-          Biology: 90,
-          Chemistry: 90,
-          IslamicStudy: 85,
-          ArabicLanguage: 75,
-          SomaliLanguage: 82,
+          Mathematics: 0,
+          Physics: 1,
+          Biology: 0,
+          Chemistry: 0,
+          IslamicStudy: 5,
+          ArabicLanguage: 7,
+          SomaliLanguage: 2,
           EnglishLanguage: 70,
           History: 62,
           Geography: 71,
@@ -1157,6 +1252,14 @@
       return { grade: "F", class: "grade-F" };
     }
 
+    function getComment(score) {
+        if (score >= 90) return "Heer Sare";
+        if (score >= 75) return "Aad u Wanaagsan";
+        if (score >= 60) return "Wanaagsan";
+        if (score >= 50) return "Dhexdhexaad";
+        return "Dedaal Dheeri ah I.A";
+    }
+
     function showResult() {
       const reg = document.getElementById('regInput').value.trim();
       const student = students.find((s) => s.regNo === reg);
@@ -1184,6 +1287,32 @@
       // Get overall letter grade
       const overallLetterGrade = getLetterGrade(avg);
 
+      // --- TRIGGER ANIMATION ---
+      if (status === 'Gudbay') {
+          const winnerOverlay = document.getElementById('winner-animation');
+          winnerOverlay.style.display = 'flex';
+
+          // Trigger confetti
+          confetti({
+              particleCount: 1000,
+              spread: 180,
+              origin: { y: 0.6 },
+              zIndex: 1001
+          });
+
+          setTimeout(() => {
+              winnerOverlay.style.display = 'none';
+          }, 4000); // Hide after 4 seconds
+      } else {
+          const loserOverlay = document.getElementById('loser-animation');
+          loserOverlay.style.display = 'flex';
+
+          setTimeout(() => {
+              loserOverlay.style.display = 'none';
+          }, 4000); // Hide after 4 seconds
+      }
+      // --- END OF ANIMATION TRIGGER ---
+
       let resultHTML = `
         <div class="student-info-container">
           <div class="student-info-header">
@@ -1191,129 +1320,103 @@
             <span class="student-info-badge">IMTIXAANKA GUUD</span>
           </div>
           
-          <div class="student-info-grid">
-            <div class="info-item">
-              <div class="info-icon"><i class="fas fa-id-badge"></i></div>
-              <div>
-                <div class="info-label">Tira-taxanaha:</div>
-                <div class="info-value">${student.regNo}</div>
-              </div>
+          <div class="student-info-rows">
+            <div class="info-row">
+                <div class="info-item">
+                  <div class="info-icon"><i class="fas fa-id-badge"></i></div>
+                  <div>
+                    <div class="info-label">Tira-taxanaha:</div>
+                    <div class="info-value">${student.regNo}</div>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <div class="info-icon"><i class="fas fa-user-graduate"></i></div>
+                  <div>
+                    <div class="info-label">Magaca Ardeyga:</div>
+                    <div class="info-value">${student.name}</div>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <div class="info-icon"><i class="fas fa-female"></i></div>
+                  <div>
+                    <div class="info-label">Magaca Hooyada:</div>
+                    <div class="info-value">${student.motherName}</div>
+                  </div>
+                </div>
             </div>
-            
-            <div class="info-item">
-              <div class="info-icon"><i class="fas fa-user-graduate"></i></div>
-              <div>
-                <div class="info-label">Magaca Ardeyga:</div>
-                <div class="info-value">${student.name}</div>
-              </div>
-            </div>
-            
-            <div class="info-item">
-              <div class="info-icon"><i class="fas fa-female"></i></div>
-              <div>
-                <div class="info-label">Magaca Hooyada:</div>
-                <div class="info-value">${student.motherName}</div>
-              </div>
-            </div>
-            
-            <div class="info-item">
-              <div class="info-icon"><i class="fas fa-school"></i></div>
-              <div>
-                <div class="info-label">Fasalka:</div>
-                <div class="info-value">${student.class}</div>
-              </div>
-            </div>
-            
-            <div class="info-item">
-              <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
-              <div>
-                <div class="info-label">Sanad dugsiyeedka:</div>
-                <div class="info-value">${student.year}</div>
-              </div>
-            </div>
-            
-            <div class="info-item">
-              <div class="info-icon"><i class="fas fa-award"></i></div>
-              <div>
-                <div class="info-label">Go'aanka:</div>
-                <div class="info-value"><span style="font-weight: bold; color: ${statusClass === 'pass' ? '#2e7d32' : '#d32f2f'}">${status}</span></div>
-              </div>
+            <div class="info-row">
+                <div class="info-item">
+                  <div class="info-icon"><i class="fas fa-school"></i></div>
+                  <div>
+                    <div class="info-label">Fasalka:</div>
+                    <div class="info-value">${student.class}</div>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+                  <div>
+                    <div class="info-label">Sanad Dugsiyeedka:</div>
+                    <div class="info-value">${student.year}</div>
+                  </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon" style="background-color: ${status === 'Gudbay' ? 'var(--success-green)' : 'var(--danger-red)'};">
+                        <i class="fas ${status === 'Gudbay' ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                    </div>
+                    <div>
+                        <div class="info-label">Go'aanka:</div>
+                        <div class="info-value" style="color: ${status === 'Gudbay' ? 'var(--success-green)' : 'var(--danger-red)'}; font-weight: bold;">
+                        ${status}
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
-        
+
         <div class="results-container">
           <div class="results-header">
-            <h3 class="results-title">NATIIJADA IMTIXAANKA</h3>
-            <span class="results-badge">ARDEYGA: ${student.name}</span>
+            <h3 class="results-title">Natiijada Maadooyinka</h3>
+            <span class="results-badge">12 Maado</span>
           </div>
-          
-          <table class="results-table">
-            <thead>
-              <tr>
-                <th>Maaddada</th>
-                <th>Darajada (100)</th>
-                <th>Grade (Letter)</th>
-                <th>Heerka Awooda</th>
-              </tr>
-            </thead>
-            <tbody>`;
-
-      subjects.forEach((subj) => {
-        const formattedSubj = subj.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-        const score = student.results[subj];
-        const progressWidth = score + '%';
-        const letterGrade = getLetterGrade(score);
-        
-        // Determine performance indicator
-        let performanceClass = '';
-        let performanceText = '';
-        let progressColor = '';
-        
-        if (score >= 85) {
-          performanceClass = 'excellent';
-          performanceText = 'Aad u wanaagsan';
-          progressColor = '#00c853';
-        } else if (score >= 70) {
-          performanceClass = 'good';
-          performanceText = 'Wanaagsan';
-          progressColor = '#64dd17';
-        } else if (score >= 50) {
-          performanceClass = 'average';
-          performanceText = 'Dhexdhexaad';
-          progressColor = '#ffab00';
-        } else if (score >= 30) {
-          performanceClass = 'poor';
-          performanceText = 'Liita';
-          progressColor = '#ff6d00';
-        } else {
-          performanceClass = 'fail';
-          performanceText = 'Guuldareystay';
-          progressColor = '#dd2c00';
-        }
-        
-        resultHTML += `
-          <tr>
-            <td class="subject-name">${formattedSubj}</td>
-            <td class="grade-cell">
-              <span class="grade-value">${score}</span>
-              <div class="grade-progress">
-                <div class="grade-progress-bar" style="width: ${progressWidth}; background: ${progressColor}"></div>
-              </div>
-            </td>
-            <td class="letter-grade ${letterGrade.class}" style="font-weight: bold;">${letterGrade.grade}</td>
-            <td>
-              <span class="performance-indicator ${performanceClass}"></span>
-              ${performanceText}
-            </td>
-          </tr>`;
-      });
-
-      resultHTML += `
-            </tbody>
-          </table>
+          <div style="overflow-x:auto;">
+            <table class="results-table">
+              <thead>
+                <tr>
+                  <th>Maadada</th>
+                  <th>Dhibcaha (la rabo: 100)</th>
+                  <th>Darajada</th>
+                  <th>Faallo</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${subjects.map((subject, index) => {
+                  const score = scores[index];
+                  const letterGrade = getLetterGrade(score);
+                  const comment = getComment(score);
+                  const performanceClass = score >= 90 ? 'excellent' : score >= 75 ? 'good' : score >= 60 ? 'average' : score >= 50 ? 'poor' : 'fail';
+                  return `
+                    <tr>
+                      <td data-label="Maadada" class="subject-name">${subject}</td>
+                      <td data-label="Dhibcaha" class="grade-cell">
+                        <span class="grade-value">${score}</span>
+                        <div class="grade-progress">
+                          <div class="grade-progress-bar ${performanceClass}" style="width: ${score}%;"></div>
+                        </div>
+                      </td>
+                      <td data-label="Darajada">
+                        <span class="performance-indicator ${performanceClass}"></span>
+                        ${letterGrade.grade}
+                      </td>
+                      <td data-label="Faallo">${comment}</td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
         </div>
-        
+
         <div class="summary-container">
           <div class="summary-card total-card">
             <div style="font-size: 40px; opacity: 0.1; position: absolute; right: 15px; top: 15px;"><i class="fas fa-calculator"></i></div>
@@ -1332,54 +1435,29 @@
           <div class="summary-card status-card ${statusClass === 'pass' ? 'success-status' : ''}">
             <div style="font-size: 40px; opacity: 0.1; position: absolute; right: 15px; top: 15px;">${statusClass === 'pass' ? '<i class="fas fa-trophy"></i>' : '<i class="fas fa-exclamation-triangle"></i>'}</div>
             <div class="summary-title">GO'AANKA</div>
-            <div class="summary-value">${status} <span class="letter-grade ${overallLetterGrade.class}" style="font-size: 24px;">(${overallLetterGrade.grade})</span></div>
-            <div class="summary-desc">${statusClass === 'pass' ? 'Waad guulaysatay!' : 'Waa inaad dadaashaa!'}</div>
+            <div class="summary-value">${status} <span class="letter-grade ${overallLetterGrade.class}" style="font-size: 40px;">(${overallLetterGrade.grade})</span></div>
+            <div class="summary-desc">${statusClass === 'pass' ? 'Hambalyo, waxaad u gudubtay heerka xiga!' : 'Nasiib wacan, isku day mar kale.'}</div>
           </div>
         </div>
         
         <div class="final-comment">
-          <div class="comment-header">FAALLO GUUD</div>
-          <div class="comment-content">
-            <p>${getPerformanceComment(avg)}</p>
-          </div>
-        </div>`;
-
+            <div class="comment-header">Faallo Guud</div>
+            <div class="comment-content">
+                 ${student.name}, natiijadani waxay ka tarjumaysaa dedaalkaagii intii lagu gudi jiray sanad dugsiyeedka. Haddii aad guulaysatay amaba gudubtay, sii kordhi dedaalkaaga wanaagsan. Haddiise kale, ha niyad jebin oo ha quusan oo ka faa'iidayso fursadaha kale ee iman kara.
+            </div>
+        </div>
+      `;
       document.getElementById('result').innerHTML = resultHTML;
-      printBtn.style.display = 'block';
-      
-      // Add fade-in animation to all progress bars
-      setTimeout(() => {
-        document.querySelectorAll('.grade-progress-bar').forEach(bar => {
-          bar.style.width = bar.style.width;
-        });
-      }, 100);
+      printBtn.style.display = 'flex';
+      document.getElementById('printDate').textContent = new Date().toLocaleString();
     }
 
-    function getPerformanceComment(average) {
-      if (average >= 85) {
-        return "Waxaad ka mid tahay ardayda ugu fiican fasalkaaga! Dadaalkaaga waa mid lagu qadarayo, waana ku guulaysan doonta mustaqbalka. Si wadajir ah ayaa loogu mahadcelinayaa dadaalkaaga. Ku sii wad waxqabadka wanaagsan.";
-      } else if (average >= 70) {
-        return "Waxaad muujisay hufnaan waxbarasho oo wanaagsan. Waxaa jira meelaha aad ka hagaajin karto, laakiin guul ayaad ku heshay imtixaankan. Ku sii dadaal si aad u gaadhid heerka fiican.";
-      } else if (average >= 50) {
-        return "Waxaad ku guuleysatay imtixaanka, laakiin waxaa jira meelo badan oo aad hagaajin kartid. Talooyin: Isticmaal wakhtigaaga si habsami ah, ka qaybgal casharro dheeraad ah, oo la xidhiidh macallimiintaada markaad u baahan tahay caawimaad.";
-      } else {
-        return "Natiijadaadu waxay muujinaysaa inaad u baahan tahay dadaal dheeri ah. La xidhiidh macallimiintaada si aad u hesho tallaabooyin hagaajineed. Waxaan rumaysanahay inaad awood u leedahay inaad hagaajiso haddii aad dadaasho!";
-      }
-    }
-
-    document.getElementById("printDate").innerText = new Date().toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-
-    // Add event listener for Enter key
-    document.getElementById('regInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        showResult();
-      }
+    // Add event listener for Enter key on the input field
+    document.getElementById('regInput').addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            showResult();
+        }
     });
   </script>
 <!DOCTYPE html>
