@@ -1015,10 +1015,10 @@
           Physics: 100,
           Biology: 100,
           Chemistry: 40,
-          Islamic Study: 60,
-          Arabic Language: 100,
-          Somali Language: 100,
-          English Language: 100,
+          IslamicStudy: 60,
+          ArabicLanguage: 100,
+          SomaliLanguage: 100,
+          EnglishLanguage: 100,
           History: 76,
           Geography: 84,
           Technology: 91,
@@ -1036,10 +1036,10 @@
           Physics: 58,
           Biology: 72,
           Chemistry: 68,
-          Islamic Study: 85,
-          Arabic Language: 75,
-          Somali Language: 82,
-          English Language: 70,
+          IslamicStudy: 85,
+          ArabicLanguage: 75,
+          SomaliLanguage: 82,
+          EnglishLanguage: 70,
           History: 62,
           Geography: 71,
           Technology: 69,
@@ -1057,10 +1057,10 @@
           Physics: 1,
           Biology: 0,
           Chemistry: 0,
-          Islamic Study: 5,
-          Arabic Language: 7,
-          Somali Language: 2,
-          English Language: 70,
+          IslamicStudy: 5,
+          ArabicLanguage: 7,
+          SomaliLanguage: 2,
+          EnglishLanguage: 70,
           History: 62,
           Geography: 71,
           Technology: 69,
@@ -1077,11 +1077,11 @@
           Mathematics: 98,
           Physics: 98,
           Biology: 90,
-          Chemistry: 100,
+          Chemistry: 99,
           IslamicStudy: 100,
-          Arabic Language: 100,
-          Somali Language: 100,
-          English Language: 80,
+          ArabicLanguage: 100,
+          SomaliLanguage: 100,
+          EnglishLanguage: 80,
           History: 90,
           Geography: 95,
           Technology: 95,
@@ -1100,9 +1100,9 @@
           Biology: 90,
           Chemistry: 100,
           IslamicStudy: 100,
-          Arabic Language: 100,
-          Somali Language: 100,
-          English Language: 80,
+          ArabicLanguage: 100,
+          SomaliLanguage: 100,
+          EnglishLanguage: 80,
           History: 100,
           Geography: 95,
           Technology: 99,
@@ -1121,9 +1121,9 @@
           Biology: 100,
           Chemistry: 99,
           IslamicStudy: 100,
-          Arabic Language: 100,
-          Somali Language: 100,
-          English Language: 80,
+          ArabicLanguage: 100,
+          SomaliLanguage: 100,
+          EnglishLanguage: 80,
           History: 90,
           Geography: 95,
           Technology: 95,
@@ -1142,9 +1142,9 @@
           Biology: 80,
           Chemistry: 100,
           IslamicStudy: 100,
-          Arabic Language: 100,
-          Somali Language: 100,
-          English Language: 100,
+          ArabicLanguage: 100,
+          SomaliLanguage: 100,
+          EnglishLanguage: 100,
           History: 90,
           Geography: 95,
           Technology: 95,
@@ -1162,10 +1162,10 @@
           Physics: 100,
           Biology: 80,
           Chemistry: 100,
-          Islamic Study: 100,
-          Arabic Language: 100,
-          Somali Language: 100,
-          English Language: 100,
+          IslamicStudy: 100,
+          ArabicLanguage: 100,
+          SomaliLanguage: 100,
+          EnglishLanguage: 100,
           History: 90,
           Geography: 95,
           Technology: 95,
@@ -1184,9 +1184,9 @@
           Biology: 90,
           Chemistry: 95,
           IslamicStudy: 95,
-          Arabic Language: 100,
-          Somali Language: 90,
-          English Language: 100,
+          ArabicLanguage: 100,
+          SomaliLanguage: 90,
+          EnglishLanguage: 100,
           History: 100,
           Geography: 100,
           Technology: 99,
@@ -1204,10 +1204,10 @@
           Physics: 95,
           Biology: 90,
           Chemistry: 95,
-          Islamic Study: 95,
-          Arabic Language: 100,
-          Somali Language: 90,
-          English Language: 100,
+          IslamicStudy: 95,
+          ArabicLanguage: 100,
+          SomaliLanguage: 90,
+          EnglishLanguage: 100,
           History: 100,
           Geography: 100,
           Technology: 99,
@@ -1225,10 +1225,10 @@
           Physics: 98,
           Biology: 90,
           Chemistry: 99,
-          Islamic Study: 100,
-          Arabic Language: 100,
-          Somali Language: 100,
-          English Language: 80,
+          IslamicStudy: 100,
+          ArabicLanguage: 100,
+          SomaliLanguage: 100,
+          EnglishLanguage: 80,
           History: 90,
           Geography: 95,
           Technology: 95,
@@ -1333,7 +1333,7 @@
                   <div class="info-icon"><i class="fas fa-user-graduate"></i></div>
                   <div>
                     <div class="info-label">Magaca Ardeyga:</div>
-                    <div class="info-value">${student.name}</div>
+                    <div class="info-value">${student.name}<strong></div>
                   </div>
                 </div>
                 <div class="info-item">
@@ -1422,18 +1422,21 @@
             <div style="font-size: 40px; opacity: 0.1; position: absolute; right: 15px; top: 15px;"><i class="fas fa-calculator"></i></div>
             <div class="summary-title">WADARTA</div>
             <div class="summary-value">${total}/1200</div>
+            <div class="summary-desc">Wadarta dhammaan daraasadaada</div>
           </div>
           
           <div class="summary-card average-card">
             <div style="font-size: 40px; opacity: 0.1; position: absolute; right: 15px; top: 15px;"><i class="fas fa-chart-line"></i></div>
             <div class="summary-title">CELCELISKA</div>
             <div class="summary-value">${avg.toFixed(1)}%</div>
+            <div class="summary-desc">Celceliska guud ee imtixaanka</div>
           </div>
           
           <div class="summary-card status-card ${statusClass === 'pass' ? 'success-status' : ''}">
             <div style="font-size: 40px; opacity: 0.1; position: absolute; right: 15px; top: 15px;">${statusClass === 'pass' ? '<i class="fas fa-trophy"></i>' : '<i class="fas fa-exclamation-triangle"></i>'}</div>
             <div class="summary-title">GO'AANKA</div>
             <div class="summary-value">${status} <span class="letter-grade ${overallLetterGrade.class}" style="font-size: 40px;">(${overallLetterGrade.grade})</span></div>
+            <div class="summary-desc">${statusClass === 'pass' ? 'Hambalyo, waxaad u gudubtay heerka xiga!' : 'Nasiib wacan, isku day mar kale.'}</div>
           </div>
         </div>
         
