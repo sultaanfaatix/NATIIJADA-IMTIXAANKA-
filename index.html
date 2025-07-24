@@ -1422,21 +1422,19 @@
             <div style="font-size: 40px; opacity: 0.1; position: absolute; right: 15px; top: 15px;"><i class="fas fa-calculator"></i></div>
             <div class="summary-title">WADARTA</div>
             <div class="summary-value">${total}/1200</div>
-            <div class="summary-desc">Wadarta dhammaan daraasadaada</div>
           </div>
           
           <div class="summary-card average-card">
             <div style="font-size: 40px; opacity: 0.1; position: absolute; right: 15px; top: 15px;"><i class="fas fa-chart-line"></i></div>
             <div class="summary-title">CELCELISKA</div>
             <div class="summary-value">${avg.toFixed(1)}%</div>
-            <div class="summary-desc">Celceliska guud ee imtixaanka</div>
           </div>
           
           <div class="summary-card status-card ${statusClass === 'pass' ? 'success-status' : ''}">
             <div style="font-size: 40px; opacity: 0.1; position: absolute; right: 15px; top: 15px;">${statusClass === 'pass' ? '<i class="fas fa-trophy"></i>' : '<i class="fas fa-exclamation-triangle"></i>'}</div>
             <div class="summary-title">GO'AANKA</div>
             <div class="summary-value">${status} <span class="letter-grade ${overallLetterGrade.class}" style="font-size: 40px;">(${overallLetterGrade.grade})</span></div>
-            <div class="summary-desc">${statusClass === 'pass' ? 'Hambalyo, waxaad u gudubtay heerka xiga!' : 'Nasiib wacan, isku day mar kale.'}</div>
+            <div class="summary-desc">${statusClass === 'pass' ? 'Hambalyo!' : 'Nasiib wacan, isku day mar kale.'}</div>
           </div>
         </div>
         
