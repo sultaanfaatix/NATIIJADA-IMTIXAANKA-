@@ -777,11 +777,12 @@
         <i class="fas fa-id-card"></i> Tira-taxaneha Dugsiga
       </label>
       <input 
-        type="text" 
+        type="number" 
         id="regInput" 
         class="input-field" 
-        placeholder="Geli lambarkaaga tira-taxanaha (tusaale: 001)"
         aria-label="Geli lambarkaaga tira-taxanaha"
+        inputmode="numeric"
+        pattern="[0-9]*"
       >
       <button class="submit-btn" onclick="showResult()">
         <i class="fas fa-search"></i> U Gudub Aragtida Natiijadaada
