@@ -924,18 +924,19 @@
         var(--accent-gold), 
         var(--primary-blue)
     );
-    animation: spin-gradient 2s linear infinite;
-    z-index: -2;
-}
+    animation: spin-gradient 4s linear infinite;
+    z-index: -2; /* Place it behind the card's background */
+ }
 
-.summary-card::after {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    background: inherit;
-    border-radius: 10px;
-    z-index: -1;
-}
+ /* This layer creates the "hole" showing the original background */
+    .summary-card::after {
+        content: '';
+        position: absolute;
+        inset: 4px; /* This defines the border thickness */
+        background: inherit; /* Use the card's original background */
+        border-radius: 10px; /* Should be (card radius - inset value) */
+        z-index: -1; /* On top of the gradient, but behind content */
+    }
     /* --- END OF NEW ANIMATION STYLES --- */
 
   </style>
@@ -1395,6 +1396,69 @@
         },
       },
       {
+        regNo: "004",
+        name: "Xanaan Cabdiraxmaan Cumar Cabdimaalik",
+        motherName: "Hani Cabdirisaaq Faatix",
+        class: "Form 4B",
+        year: "2025",
+        results: {
+          Mathematics: 65,
+          Physics: 58,
+          Biology: 72,
+          Chemistry: 68,
+          IslamicStudy: 85,
+          ArabicLanguage: 75,
+          SomaliLanguage: 82,
+          EnglishLanguage: 70,
+          History: 62,
+          Geography: 71,
+          Technology: 69,
+          Business: 74,
+        },
+      },
+      {
+        regNo: "005",
+        name: "Hani Hanad Haaruun Hussein",
+        motherName: "Hudda Cabdillaahi Cismaan",
+        class: "Form 4B",
+        year: "2025",
+        results: {
+          Mathematics: 65,
+          Physics: 58,
+          Biology: 72,
+          Chemistry: 68,
+          IslamicStudy: 85,
+          ArabicLanguage: 75,
+          SomaliLanguage: 82,
+          EnglishLanguage: 70,
+          History: 62,
+          Geography: 71,
+          Technology: 69,
+          Business: 74,
+        },
+      },
+      {
+        regNo: "006",
+        name: "Cumar Maxamuud",
+        motherName: "Cayni Ciise Maxamuud",
+        class: "Form 4B",
+        year: "2025",
+        results: {
+          Mathematics: 65,
+          Physics: 58,
+          Biology: 72,
+          Chemistry: 68,
+          IslamicStudy: 85,
+          ArabicLanguage: 75,
+          SomaliLanguage: 82,
+          EnglishLanguage: 70,
+          History: 62,
+          Geography: 71,
+          Technology: 69,
+          Business: 74,
+        },
+      },
+      {
         regNo: "321",
         name: "ZEMZEM BASHEER MOHAMED AHMED",
         motherName: "UNDEFINED",
@@ -1474,13 +1538,13 @@
 
           // Trigger confetti
           confetti({
-              particleCount: 1000,
-              spread: 180,
+              particleCount: 1500,
+              spread: 360,
               origin: { y: 0.6 },
               zIndex: 1001
           });
 
-          setTimeout(() => {
+          setTimeout(() => { 
               winnerOverlay.style.display = 'none';
           }, 4000); // Hide after 4 seconds
       } else {
