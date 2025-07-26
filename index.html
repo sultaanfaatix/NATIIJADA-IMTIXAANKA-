@@ -517,10 +517,33 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(40,167,69,0.4);
     }
-    
     .print-button:active {
       transform: translateY(0);
     }
+
+/* Print Settings - Set Paper Size to Tabloid */
+@media print {
+  @page {
+    size: tabloid;
+    margin: 1cm;
+  }
+
+  /* Hide the print button during print */
+  .print-button {
+    display: none;
+  }
+
+  /* Add additional print styles here */
+  body {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Optional: hide other screen-only content */
+  .no-print {
+    display: none;
+  }
+}
     
     /* Grading Scale - Modernized */
     .grading-scale {
