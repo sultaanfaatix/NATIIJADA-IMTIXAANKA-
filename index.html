@@ -2,6 +2,123 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exam Results - TAYSIIR</title>
+  <style>
+    :root {
+      --primary: #002060;
+      --secondary: #007bff;
+      --accent: #ffffff;
+      --glow: #00e0ffcc;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fb;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ========== ANIMATION ========== */
+    @keyframes curtain-slide {
+      0% {
+        transform: translateY(-120%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* ========== MODERN HEADER ========== */
+    header.curtain-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--accent);
+      padding: 60px 30px;
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      border-radius: 0 0 2rem 2rem;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      animation: curtain-slide 1s ease-out forwards;
+      letter-spacing: 1px;
+    }
+
+    /* ========== HEADER GLOW UNDERLINE ========== */
+    header.curtain-header::after {
+      content: '';
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 5px;
+      border-radius: 10px;
+      background: var(--glow);
+      box-shadow: 0 0 20px var(--glow);
+    }
+
+    /* ========== SUBHEADING (OPTIONAL) ========== */
+    .subheading {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #eef7ff;
+      margin-top: 10px;
+      opacity: 0.8;
+    }
+
+    /* ========== CONTENT AREA ========== */
+    .content {
+      padding: 40px 20px;
+      max-width: 900px;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      header.curtain-header {
+        font-size: 1.8rem;
+        padding: 50px 20px;
+      }
+      .subheading {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="curtain-header">
+    TAYSIIR INTERNATIONAL SCHOOLS
+    <div class="subheading">Final Exam Results - Academic Year 2024/2025</div>
+  </header>
+
+  <div class="content">
+    <p>Welcome to the results portal. Below you'll find the final exam results for the selected term. Please scroll down to view subject scores, averages, and overall remarks.</p>
+  </div>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TAYSIIR INTERNATIONAL SCHOOLS - FINAL EXAM RESULTS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -517,33 +634,10 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(40,167,69,0.4);
     }
+    
     .print-button:active {
       transform: translateY(0);
     }
-
-/* Print Settings - Set Paper Size to Tabloid */
-@media print {
-  @page {
-    size: tabloid;
-    margin: 1cm;
-  }
-
-  /* Hide the print button during print */
-  .print-button {
-    display: none;
-  }
-
-  /* Add additional print styles here */
-  body {
-    font-size: 14px;
-    line-height: 1.4;
-  }
-
-  /* Optional: hide other screen-only content */
-  .no-print {
-    display: none;
-  }
-}
     
     /* Grading Scale - Modernized */
     .grading-scale {
@@ -783,6 +877,67 @@
     }
     /* --- END OF ANIMATION STYLES --- */
 
+    /* --- NEW: ANIMATED BORDER FOR SUMMARY CARDS --- */
+    @keyframes spin-gradient {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+/* Summary Card */
+.summary-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    padding: 20px;
+    background: #ffffff;
+    z-index: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Spin Gradient Animation */
+@keyframes spin-gradient {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animated Border */
+.summary-card::before {
+    content: '';
+    position: absolute;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 180deg at 50% 50%,
+        var(--primary-blue), 
+        var(--secondary-blue), 
+        var(--success-green), 
+        var(--accent-gold), 
+        var(--primary-blue)
+    );
+    animation: spin-gradient 2s linear infinite;
+    z-index: -2;
+}
+
+.summary-card::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: inherit;
+    border-radius: 10px;
+    z-index: -1;
+}
+    /* --- END OF NEW ANIMATION STYLES --- */
+
   </style>
 </head>
 <body>
@@ -821,7 +976,7 @@
     
     <!-- Grading Scale Section - Compact Design -->
 <div class="grading-scale-compact">
-  <h4><i class="fas fa-graduation-cap"></i> Miisaanka Darajada (LETTER GRADE SCALE)</h4>
+  <h4><i class="fas fa-graduation-cap"></i> Miisaanka Xuruuf-Darajeedka (LETTER GRADE SCALE)</h4>
   
   <div class="grade-scale-container">
     <!-- First Row of Grades -->
@@ -1282,7 +1437,7 @@
         if (score >= 75) return "Aad u Wanaagsan";
         if (score >= 60) return "Wanaagsan";
         if (score >= 50) return "Dhexdhexaad";
-        return "Dedaal Dheeri ah I.A";
+        return "Liita";
     }
 
     function showResult() {
@@ -1348,7 +1503,7 @@
           <div class="student-info-rows">
             <div class="info-row">
                 <div class="info-item">
-                  <div class="info-icon"><i class="fas fa-id-badge"></i></div>
+                  <div class="info-icon"><i class="fas fa-id-card"></i></div>
                   <div>
                     <div class="info-label">Tira-taxanaha:</div>
                     <div class="info-value">${student.regNo}</div>
